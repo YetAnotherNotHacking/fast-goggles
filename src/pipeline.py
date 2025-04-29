@@ -2,19 +2,30 @@ import os
 import json
 from pathlib import Path
 import pandas as pd
+import warnings
 from .predict_pose import detect_multiple_poses
 from .predict_object import detect_objects
 from .predict_face import detect_faces
+from . import settings
 from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TaskProgressColumn, TimeRemainingColumn
 import logging
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
+os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
+os.environ['PYTHONWARNINGS'] = 'ignore'
+os.environ['TF_GPU_ALLOCATOR'] = 'cuda_malloc_async'
+
 logging.getLogger('tensorflow').setLevel(logging.ERROR)
+logging.getLogger('ultralytics').setLevel(logging.ERROR)
+logging.getLogger('mediapipe').setLevel(logging.ERROR)
+warnings.filterwarnings('ignore')
 
 class ImageProcessor:
-    def __init__(self, input_dir, output_dir):
+    def __init__(self, input_dir, output_dir, desired_emotion):
         self.input_dir = Path(input_dir)
         self.output_dir = Path(output_dir)
         self.output_dir.mkdir(parents=True, exist_ok=True)
+        self.desired_emotion = desired_emotion
         
     def process_image(self, image_path):
         image_path = Path(image_path)
@@ -37,6 +48,20 @@ class ImageProcessor:
         
         return results
     
+    def score_image(self, results):
+        emotion_score = 0
+        object_score = 0
+        
+        for face in results['faces']:
+            if face['emotion'].lower() == self.desired_emotion.lower():
+                emotion_score += 1
+        
+        for obj in results['objects']:
+            if obj['label'] in settings.OBJECT_BIASES:
+                object_score += emotion_score * settings.OBJECT_BIASES[obj['label']]
+        
+        return emotion_score + object_score
+    
     def process_directory(self):
         all_results = []
         image_files = [f for f in self.input_dir.glob('*') if f.suffix.lower() in ['.jpg', '.jpeg', '.png']]
@@ -53,6 +78,7 @@ class ImageProcessor:
             for image_path in image_files:
                 try:
                     results = self.process_image(image_path)
+                    results['score'] = self.score_image(results)
                     all_results.append(results)
                     
                     output_path = self.output_dir / f"{image_path.stem}_results.json"
@@ -68,4 +94,4 @@ class ImageProcessor:
         with open(summary_path, 'w') as f:
             json.dump(all_results, f, indent=2)
             
-        return all_results 
+        return sorted(all_results, key=lambda x: x['score'], reverse=True) 

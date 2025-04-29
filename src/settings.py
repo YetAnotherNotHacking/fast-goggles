@@ -83,3 +83,16 @@ image_raw_bias_settings = [
     {'biasamount': 0.4, 'id': 77, 'name': 'teddy bear'},
     {'biasamount': 0.1, 'id': 78, 'name': 'hair drier'},
     {'biasamount': 0.1, 'id': 79, 'name': 'toothbrush'}]
+
+OBJECT_BIASES = {
+    'cell phone': 0.2,
+    'cake': 0.3,
+    'wine glass': 0.2,
+    'bottle': 0.1,
+    'person': 0.1,
+    'dog': 0.2,
+    'cat': 0.2,
+    'teddy bear': 0.3,
+    'ball': 0.2,
+    'book': 0.1
+}

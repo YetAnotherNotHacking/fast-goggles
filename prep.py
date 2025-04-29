@@ -1,3 +1,6 @@
+# This is really only used if you do the identity stuff
+# but we ain't gonna do that because im tired
+
 import os
 import urllib.request
 
