@@ -57,8 +57,10 @@ class ImageProcessor:
                 emotion_score += 1
         
         for obj in results['objects']:
-            if obj['label'] in settings.OBJECT_BIASES:
-                object_score += emotion_score * settings.OBJECT_BIASES[obj['label']]
+            for bias in settings.image_raw_bias_settings:
+                if obj['label'].lower() == bias['name'].lower():
+                    object_score += emotion_score * bias['biasamount']
+                    break
         
         return emotion_score + object_score
     
