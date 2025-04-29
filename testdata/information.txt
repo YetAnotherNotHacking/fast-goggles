@@ -1,6 +1,7 @@
 These images were taken from the website aswphoto.pl.
 Not my images, all credit belongs to them.
 They only serve to test if the functionality of modules are working.
+Some are from google.
 
 Multiple people image:
 testimage_manypeople.png
