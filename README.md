@@ -1,15 +1,15 @@
 <p align="center">
-  <img src="assets/fastgoggles_main_logo.png" alt="Fast Goggles Logo" width="400"/>
+  <img src="assets/fastgoggles_main_logo.png" alt="Fast Goggles Logo" width="150"/>
 </p>
 
 # Fast Goggles
 A utility for proffessional photographers to quickly find photos that best capture the event they are shooting, saving them time so that they are able to spend more of their time on high quality edits for their customers.
 
 ## Features:
-    ⚡  Fast searching of files and generatoin of custom metadata
-    🧠 Makes use of machine learning libraries
-    🧰 Easy to integrate with AppleScript or you preffered method of automation
-    🔧 CLI interface with Rich TUI for pleasant visual appearance
+ - ⚡  Fast searching of files and generatoin of custom metadata
+ - 🧠 Makes use of machine learning libraries
+ - 🧰 Easy to integrate with AppleScript or you preffered method of automation
+ - 🔧 CLI interface with Rich TUI for pleasant visual appearance
 
 ## Installation
 From Source:
@@ -35,15 +35,15 @@ Nothing much currently, though more will come with further development of the pr
 
 ## Contributing
 We welcome contributions of all kinds! Here's how to get started:
-*Fork the repository
-*Create a new branch (git checkout -b feature/your-feature)
-*Commit your changes
-*Push your branch (git push origin feature/your-feature)
-*Create a Pull Request
+ - Fork the repository
+ - Create a new branch (git checkout -b feature/your-feature)
+ - Commit your changes
+ - Push your branch (git push origin feature/your-feature)
+ - Create a Pull Request
 
 Before submitting, please ensure:
-    Code passes any lint or test checks
-    Features are documented
+ - Code passes any lint or test checks
+ - Features are documented
 
 ## License
 This project is licensed under the BSD-3-Clause license. Read more about it from the source for more information.
