@@ -1,3 +1,4 @@
+# This file has no use in the actual program, it is only used to generate large settings values so that they are able to be set.
 def generate_coco_classes_file():
     coco_classes = {
         0: "person",

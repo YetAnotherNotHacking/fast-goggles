@@ -141,18 +141,19 @@ def visualize_poses(image_path, pose_results):
                 end_y = int(df.loc[df['landmark_id'] == end_idx, 'y'].values[0])
                 cv2.line(image, (start_x, start_y), (end_x, end_y), color, 2)
     return image
-if __name__ == "__main__":
-    # ONLY UNCOMMENT THIS IF YOU ARE TESTING, RECOMMENT THE ENTIRE IF__NAME__ == MAIN LOGIC TO DISABLE
-    image_path = "testdata/manypeople.jpg"
-    poses = detect_multiple_poses(image_path)
-    print(f"Detected {len(poses)} people in the image")
-    for i, pose_df in enumerate(poses):
-        print(f"\nPerson {i+1} landmarks:")
-        print(pose_df)
-    result_image = visualize_poses(image_path, poses)
-    # Save or display the result
-    # cv2.imwrite("poses_visualization.jpg", result_image)
-    # Uncomment below to display (if running in an environment with GUI)
-    cv2.imshow("Poses", result_image)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+# Test - It works well enough, though really it could be better for more effecient function of the program
+# if __name__ == "__main__":
+#     # ONLY UNCOMMENT THIS IF YOU ARE TESTING, RECOMMENT THE ENTIRE IF__NAME__ == MAIN LOGIC TO DISABLE
+#     image_path = "testdata/manypeople.jpg"
+#     poses = detect_multiple_poses(image_path)
+#     print(f"Detected {len(poses)} people in the image")
+#     for i, pose_df in enumerate(poses):
+#         print(f"\nPerson {i+1} landmarks:")
+#         print(pose_df)
+#     result_image = visualize_poses(image_path, poses)
+#     # Save or display the result
+#     # cv2.imwrite("poses_visualization.jpg", result_image)
+#     # Uncomment below to display (if running in an environment with GUI)
+#     cv2.imshow("Poses", result_image)
+#     cv2.waitKey(0)
+#     cv2.destroyAllWindows()

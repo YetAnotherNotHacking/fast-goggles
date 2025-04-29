@@ -1,3 +1,6 @@
+# Thresholds
+object_confidence_threshhold = 0.45 # Out of 1
+pose_visibility_threshhold = 0.45 # Out of 1
 # Configure the biases for the images recommendation
 image_raw_bias_settings = [   
     {'biasamount': 0.1, 'id': 0, 'name': 'person'},

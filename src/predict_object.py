@@ -34,7 +34,7 @@ def detect_objects(image_path):
     except Exception as e:
         print(f"Error detecting objects: {str(e)}")
         return []
-
+# Test:
 # if __name__ == "__main__":
 #     image_path = "testdata/testobject.png"
 #     detected_objects = detect_objects(image_path)
