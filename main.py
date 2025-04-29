@@ -1,8 +1,5 @@
 import argparse
 from src.pipeline import ImageProcessor
-from prep import doprep
-
-doprep()
 
 def main():
     parser = argparse.ArgumentParser(description='Process images for pose, object, and face detection')

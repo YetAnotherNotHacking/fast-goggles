@@ -48,4 +48,5 @@ def detect_faces(image_path):
     return face_results
 
 def predict_identity(face_img):
+    pass
     

@@ -2,9 +2,13 @@ import os
 import json
 from pathlib import Path
 import pandas as pd
-from predict_pose import detect_multiple_poses
-from predict_object import detect_objects
-from predict_face import detect_faces
+from .predict_pose import detect_multiple_poses
+from .predict_object import detect_objects
+from .predict_face import detect_faces
+from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TaskProgressColumn, TimeRemainingColumn
+import logging
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+logging.getLogger('tensorflow').setLevel(logging.ERROR)
 
 class ImageProcessor:
     def __init__(self, input_dir, output_dir):
@@ -35,8 +39,18 @@ class ImageProcessor:
     
     def process_directory(self):
         all_results = []
-        for image_path in self.input_dir.glob('*'):
-            if image_path.suffix.lower() in ['.jpg', '.jpeg', '.png']:
+        image_files = [f for f in self.input_dir.glob('*') if f.suffix.lower() in ['.jpg', '.jpeg', '.png']]
+        
+        with Progress(
+            SpinnerColumn(),
+            TextColumn("[progress.description]{task.description}"),
+            BarColumn(),
+            TaskProgressColumn(),
+            TimeRemainingColumn(),
+        ) as progress:
+            task = progress.add_task("[cyan]Processing images...", total=len(image_files))
+            
+            for image_path in image_files:
                 try:
                     results = self.process_image(image_path)
                     all_results.append(results)
@@ -47,6 +61,8 @@ class ImageProcessor:
                         
                 except Exception as e:
                     print(f"Error processing {image_path}: {str(e)}")
+                
+                progress.update(task, advance=1)
         
         summary_path = self.output_dir / "summary.json"
         with open(summary_path, 'w') as f:
