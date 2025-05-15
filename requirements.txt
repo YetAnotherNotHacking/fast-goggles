@@ -6,3 +6,4 @@ ultralytics>=8.0.0
 deepface>=0.0.79
 rich>=13.0.0
 tf-keras
+rawpy>=0.17.0
